@@ -5,32 +5,31 @@ namespace Modul3_103022400070
         public Form1()
         {
             InitializeComponent();
-            // Set default values
-            comboBoxDari.SelectedIndex = 0;
-            comboBoxKe.SelectedIndex = 1;
+            // Tidak set default values agar bisa validasi ComboBox kosong
         }
 
         private void buttonKonversi_Click(object sender, EventArgs e)
         {
             try
             {
-                // Validasi input
-                if (string.IsNullOrWhiteSpace(textBoxNilaiAwal.Text))
-                {
-                    MessageBox.Show("Mohon masukkan nilai awal!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    return;
-                }
-
+                // Validasi 1: Cek apakah kedua ComboBox sudah dipilih
                 if (comboBoxDari.SelectedIndex == -1 || comboBoxKe.SelectedIndex == -1)
                 {
-                    MessageBox.Show("Mohon pilih satuan dari dan ke!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Pilih satuan terlebih dahulu", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
-                // Parse input
+                // Validasi 2: Cek apakah TextField Nilai Awal kosong atau bukan angka valid
+                if (string.IsNullOrWhiteSpace(textBoxNilaiAwal.Text))
+                {
+                    MessageBox.Show("Masukkan angka yang valid", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Validasi 3: Parse input - cek apakah input adalah angka
                 if (!double.TryParse(textBoxNilaiAwal.Text, out double nilaiAwal))
                 {
-                    MessageBox.Show("Nilai awal harus berupa angka!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    MessageBox.Show("Masukkan angka yang valid", "Peringatan", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
                 }
 
